@@ -16,19 +16,27 @@ class MyApp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                child: Text('Hello'),
-                color: Colors.white,
-                padding: EdgeInsets.all(10.0),
-              ),
-              Container(
-                child: Text('Hello'),
-                color: Colors.blue,
-                padding: EdgeInsets.all(10.0),
-              ),
-              Container(
-                child: Text('Hello'),
+                width: 100.0,
                 color: Colors.red,
-                padding: EdgeInsets.all(10.0),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    color: Colors.yellow,
+                    width: 100.0,
+                    height: 100.0,
+                  ),
+                  Container(
+                    color: Colors.green,
+                    width: 100.0,
+                    height: 100.0,
+                  ),
+                ],
+              ),
+              Container(
+                width: 100.0,
+                color: Colors.blue,
               ),
             ],
           ),

@@ -20,9 +20,20 @@ class MyApp extends StatelessWidget {
               Text(
                 'Старый Дед',
                 style: TextStyle(
+                  fontFamily: 'Pacifico',
                   fontSize: 40.0,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'BOSS OF THE COMPANY',
+                style: TextStyle(
+                  fontFamily: 'SourceSansPro',
+                  fontSize: 20.0,
+                  color: Colors.teal[200],
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2.5,
                 ),
               ),
             ],

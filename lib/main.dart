@@ -8,11 +8,13 @@ void main() {
   }
 
   Widget _createButton(Color color, int note) {
-    return FlatButton(
-      onPressed: () {
-        _playSound(note);
-      },
-      color: color,
+    return Expanded(
+      child: FlatButton(
+        onPressed: () {
+          _playSound(note);
+        },
+        color: color,
+      ),
     );
   }
 
@@ -22,16 +24,19 @@ void main() {
           appBar: AppBar(
             title: Text(''),
           ),
-          body: Column(
-            children: <Widget>[
-              _createButton(Colors.red, 1),
-              _createButton(Colors.orange, 2),
-              _createButton(Colors.yellow, 3),
-              _createButton(Colors.green, 4),
-              _createButton(Colors.blue, 5),
-              _createButton(Colors.indigo, 6),
-              _createButton(Colors.purple, 7),
-            ],
+          body: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                _createButton(Colors.red, 1),
+                _createButton(Colors.orange, 2),
+                _createButton(Colors.yellow, 3),
+                _createButton(Colors.green, 4),
+                _createButton(Colors.blue, 5),
+                _createButton(Colors.indigo, 6),
+                _createButton(Colors.purple, 7),
+              ],
+            ),
           )),
     ),
   );

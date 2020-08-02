@@ -1,5 +1,6 @@
 import 'package:course/quiz_brain.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain brain = QuizBrain();
 
@@ -98,7 +99,15 @@ class _QuizPageState extends State<QuizPage> {
 
   void _setAnswer(bool userAnswer) {
     setState(() {
-      if (userAnswer == brain.getAnswer()) {
+      var answer = brain.getAnswer();
+      var hasNext = brain.nextQuestion();
+
+      if (!hasNext) {
+        showAlert();
+        return;
+      }
+
+      if (userAnswer == answer) {
         scoreKeeper.add(
           Icon(
             Icons.check,
@@ -113,9 +122,42 @@ class _QuizPageState extends State<QuizPage> {
           ),
         );
       }
-
-      brain.nextQuestion();
     });
+  }
+
+  void showAlert() {
+    Alert(
+      context: context,
+      type: AlertType.warning,
+      title: "Quiz complete!",
+      desc: "Would you like to restart?",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "YES",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+            setState(() {
+              brain.reset();
+              scoreKeeper.clear();
+            });
+          },
+          color: Colors.blue,
+        ),
+        DialogButton(
+          child: Text(
+            "NO",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Colors.blue,
+        )
+      ],
+    ).show();
   }
 }
 

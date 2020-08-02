@@ -29,7 +29,6 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Widget> scoreKeeper = [];
-  int currentQuestion = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                brain.questions[currentQuestion].questionText,
+                brain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -99,7 +98,7 @@ class _QuizPageState extends State<QuizPage> {
 
   void _setAnswer(bool userAnswer) {
     setState(() {
-      if (userAnswer == brain.questions[currentQuestion].questionAnswer) {
+      if (userAnswer == brain.getAnswer()) {
         scoreKeeper.add(
           Icon(
             Icons.check,
@@ -115,7 +114,7 @@ class _QuizPageState extends State<QuizPage> {
         );
       }
 
-      currentQuestion++;
+      brain.nextQuestion();
     });
   }
 }

@@ -9,3 +9,8 @@ const TextStyle BIG_NUMBER_STYLE = TextStyle(
   fontSize: 50.0,
   fontWeight: FontWeight.w900,
 );
+
+const TextStyle LARGE_BUTTON_STYLE = TextStyle(
+  fontSize: 25.0,
+  fontWeight: FontWeight.bold,
+);

@@ -1,4 +1,4 @@
-import 'package:course/input_page.dart';
+import 'package:course/screens/input_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {

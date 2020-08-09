@@ -1,4 +1,4 @@
-import 'package:course/styles.dart';
+import 'package:course/resources/styles.dart';
 import 'package:flutter/material.dart';
 
 class IconContent extends StatelessWidget {

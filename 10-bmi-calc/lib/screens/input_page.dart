@@ -1,14 +1,13 @@
-import 'package:course/reusable_card.dart';
-import 'package:course/styles.dart';
+import 'package:course/resources/colors.dart';
+import 'package:course/resources/styles.dart';
+import 'package:course/screens/result_page.dart';
+import 'package:course/widgets/bottom_button.dart';
+import 'package:course/widgets/reusable_card.dart';
+import 'package:course/widgets/value_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'icon_content.dart';
-
-const bottomContainerHeight = 80.0;
-const activeCardColor = Color(0xFF1D1E33);
-const inactiveCardColor = Color(0xFF111328);
-const bottomContainerColor = Color(0xFFEB1555);
+import '../widgets/icon_content.dart';
 
 enum Gender {
   male,
@@ -45,8 +44,8 @@ class _InputPageState extends State<InputPage> {
                       });
                     },
                     color: gender == Gender.male
-                        ? activeCardColor
-                        : inactiveCardColor,
+                        ? ACTIVE_CARD_COLOR
+                        : INACTIVE_CARD_COLOR,
                     child: IconContent(
                       title: 'MALE',
                       icon: FontAwesomeIcons.mars,
@@ -61,8 +60,8 @@ class _InputPageState extends State<InputPage> {
                       });
                     },
                     color: gender == Gender.female
-                        ? activeCardColor
-                        : inactiveCardColor,
+                        ? ACTIVE_CARD_COLOR
+                        : INACTIVE_CARD_COLOR,
                     child: IconContent(
                       title: 'FEMALE',
                       icon: FontAwesomeIcons.venus,
@@ -74,7 +73,7 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: ReusableCard(
-              color: activeCardColor,
+              color: ACTIVE_CARD_COLOR,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -125,7 +124,7 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 Expanded(
                   child: ReusableCard(
-                    color: activeCardColor,
+                    color: ACTIVE_CARD_COLOR,
                     child: ValueSelector(
                       value: weight.value,
                       title: 'WEIGHT',
@@ -136,7 +135,7 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   child: ReusableCard(
-                    color: activeCardColor,
+                    color: ACTIVE_CARD_COLOR,
                     child: ValueSelector(
                       value: age.value,
                       title: 'AGE',
@@ -148,6 +147,19 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
+          BottomButton(
+            title: 'CALCULATE',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ResultPage();
+                  },
+                ),
+              );
+            },
+          )
         ],
       ),
     );
@@ -167,82 +179,5 @@ class _InputPageState extends State<InputPage> {
         wrapper.value--;
       });
     };
-  }
-}
-
-class ValueWrapper {
-  ValueWrapper({this.value});
-  int value;
-}
-
-class ValueSelector extends StatelessWidget {
-  const ValueSelector(
-      {@required this.title,
-      @required this.value,
-      this.onIncrease,
-      this.onDecrease});
-
-  final int value;
-  final String title;
-  final Function onIncrease;
-  final Function onDecrease;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          title,
-          style: LABEL_STYLE,
-        ),
-        Text(
-          value.toString(),
-          style: BIG_NUMBER_STYLE,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            RoundIconButton(
-              icon: FontAwesomeIcons.minus,
-              onPressed: () {
-                onDecrease();
-              },
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-            RoundIconButton(
-              icon: FontAwesomeIcons.plus,
-              onPressed: () {
-                onIncrease();
-              },
-            )
-          ],
-        )
-      ],
-    );
-  }
-}
-
-class RoundIconButton extends StatelessWidget {
-  RoundIconButton({@required this.icon, this.onPressed});
-
-  final IconData icon;
-  final Function onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      elevation: 0.0,
-      child: Icon(icon),
-      onPressed: onPressed,
-      constraints: BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0,
-      ),
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
-    );
   }
 }

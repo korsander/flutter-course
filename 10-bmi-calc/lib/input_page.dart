@@ -23,6 +23,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender gender;
   int height = 180;
+  ValueWrapper weight = ValueWrapper(value: 60);
+  ValueWrapper age = ValueWrapper(value: 25);
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +76,7 @@ class _InputPageState extends State<InputPage> {
             child: ReusableCard(
               color: activeCardColor,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     'HEIGHT',
@@ -123,11 +126,23 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReusableCard(
                     color: activeCardColor,
+                    child: ValueSelector(
+                      value: weight.value,
+                      title: 'WEIGHT',
+                      onIncrease: _increaseValue(weight),
+                      onDecrease: _decreaseValue(weight),
+                    ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
                     color: activeCardColor,
+                    child: ValueSelector(
+                      value: age.value,
+                      title: 'AGE',
+                      onIncrease: _increaseValue(age),
+                      onDecrease: _decreaseValue(age),
+                    ),
                   ),
                 ),
               ],
@@ -135,6 +150,99 @@ class _InputPageState extends State<InputPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Function _increaseValue(ValueWrapper wrapper) {
+    return () {
+      setState(() {
+        wrapper.value++;
+      });
+    };
+  }
+
+  Function _decreaseValue(ValueWrapper wrapper) {
+    return () {
+      setState(() {
+        wrapper.value--;
+      });
+    };
+  }
+}
+
+class ValueWrapper {
+  ValueWrapper({this.value});
+  int value;
+}
+
+class ValueSelector extends StatelessWidget {
+  const ValueSelector(
+      {@required this.title,
+      @required this.value,
+      this.onIncrease,
+      this.onDecrease});
+
+  final int value;
+  final String title;
+  final Function onIncrease;
+  final Function onDecrease;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          title,
+          style: LABEL_STYLE,
+        ),
+        Text(
+          value.toString(),
+          style: BIG_NUMBER_STYLE,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            RoundIconButton(
+              icon: FontAwesomeIcons.minus,
+              onPressed: () {
+                onDecrease();
+              },
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            RoundIconButton(
+              icon: FontAwesomeIcons.plus,
+              onPressed: () {
+                onIncrease();
+              },
+            )
+          ],
+        )
+      ],
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  RoundIconButton({@required this.icon, this.onPressed});
+
+  final IconData icon;
+  final Function onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      elevation: 0.0,
+      child: Icon(icon),
+      onPressed: onPressed,
+      constraints: BoxConstraints.tightFor(
+        width: 56.0,
+        height: 56.0,
+      ),
+      shape: CircleBorder(),
+      fillColor: Color(0xFF4C4F5E),
     );
   }
 }

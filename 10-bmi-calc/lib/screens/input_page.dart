@@ -1,3 +1,4 @@
+import 'package:course/calculator.dart';
 import 'package:course/resources/colors.dart';
 import 'package:course/resources/styles.dart';
 import 'package:course/screens/result_page.dart';
@@ -150,11 +151,17 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
             title: 'CALCULATE',
             onTap: () {
+              Calculator calc =
+                  Calculator(height: height, weight: weight.value);
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return ResultPage();
+                    return ResultPage(
+                      bmiResult: calc.calculateBMI(),
+                      resultText: calc.getResult(),
+                      interpretation: calc.getInterpretation(),
+                    );
                   },
                 ),
               );
